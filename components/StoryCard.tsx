@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import type { HNItem } from "@/lib/types";
 import { timeAgo, getDomain } from "@/lib/api";
 
@@ -23,22 +24,20 @@ function getTypeBadge(item: HNItem) {
 }
 
 export default function StoryCard({ item, rank }: Props) {
+  const router = useRouter();
   const domain = getDomain(item.url);
   const isExternal = !!item.url;
   const badge = getTypeBadge(item);
 
   return (
-    <article className="relative bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-md hover:border-orange-100 transition-all duration-200 p-4 sm:p-5 cursor-pointer">
-      {/* Stretched link — covers the whole card, sits behind all content */}
-      <Link
-        href={`/item/${item.id}`}
-        className="absolute inset-0 rounded-2xl"
-        aria-label={`View discussion: ${item.title}`}
-      />
+    <article
+      className="relative bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-md hover:border-orange-100 transition-all duration-200 p-4 sm:p-5 cursor-pointer"
+      onClick={() => router.push(`/item/${item.id}`)}
+    >
 
       <div className="flex gap-4">
         {/* Score column */}
-        <div className="relative z-10 flex flex-col items-center gap-0.5 w-9 shrink-0 pt-0.5">
+        <div className="flex flex-col items-center gap-0.5 w-9 shrink-0 pt-0.5">
           <span className="text-[#ff6600] text-xl leading-none select-none">▲</span>
           <span className="text-sm font-bold text-[#ff6600] tabular-nums leading-tight">
             {(item.score ?? 0) >= 1000
@@ -48,7 +47,7 @@ export default function StoryCard({ item, rank }: Props) {
         </div>
 
         {/* Main content */}
-        <div className="relative z-10 flex-1 min-w-0">
+        <div className="flex-1 min-w-0">
           {/* Title row */}
           <div className="flex flex-wrap items-start gap-2 mb-2.5">
             {badge && (
@@ -93,12 +92,16 @@ export default function StoryCard({ item, rank }: Props) {
               </Link>
             </span>
             <span className="text-[11px] text-gray-400">{timeAgo(item.time)}</span>
-            <span className="inline-flex items-center gap-1 text-[11px] text-gray-400 font-medium">
+            <Link
+              href={`/item/${item.id}`}
+              className="inline-flex items-center gap-1 text-[11px] text-gray-400 font-medium hover:text-[#ff6600] transition-colors"
+              onClick={(e) => e.stopPropagation()}
+            >
               <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
               </svg>
               {item.descendants ?? 0}
-            </span>
+            </Link>
           </div>
         </div>
       </div>
