@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 import type { HNItem } from "@/lib/types";
 import { timeAgo, getDomain } from "@/lib/api";
