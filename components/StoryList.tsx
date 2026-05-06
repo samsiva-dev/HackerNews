@@ -1,5 +1,5 @@
-import Link from "next/link";
-import StoryItem from "./StoryItem";
+import StoryCard from "./StoryCard";
+import Pagination from "./Pagination";
 import type { HNItem } from "@/lib/types";
 
 interface Props {
@@ -8,6 +8,7 @@ interface Props {
   totalPages: number;
   basePath: string;
   startRank: number;
+  heading?: string;
 }
 
 export default function StoryList({
@@ -16,39 +17,25 @@ export default function StoryList({
   totalPages,
   basePath,
   startRank,
+  heading,
 }: Props) {
   return (
     <div>
-      <div>
+      {heading && (
+        <h1 className="text-xs font-semibold text-gray-400 uppercase tracking-widest mb-4 px-1">
+          {heading}
+        </h1>
+      )}
+      <div className="flex flex-col gap-3">
         {stories.map((story, i) => (
-          <StoryItem key={story.id} item={story} rank={startRank + i} />
+          <StoryCard key={story.id} item={story} rank={startRank + i} />
         ))}
       </div>
-      <div className="flex justify-between items-center py-3 px-4 text-xs text-[#828282]">
-        {currentPage > 1 ? (
-          <Link
-            href={`${basePath}?p=${currentPage - 1}`}
-            className="text-[#ff6600] hover:underline"
-          >
-            ← prev
-          </Link>
-        ) : (
-          <span />
-        )}
-        <span>
-          page {currentPage} of {totalPages}
-        </span>
-        {currentPage < totalPages ? (
-          <Link
-            href={`${basePath}?p=${currentPage + 1}`}
-            className="text-[#ff6600] hover:underline"
-          >
-            more →
-          </Link>
-        ) : (
-          <span />
-        )}
-      </div>
+      <Pagination
+        currentPage={currentPage}
+        totalPages={totalPages}
+        basePath={basePath}
+      />
     </div>
   );
 }

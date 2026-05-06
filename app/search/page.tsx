@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { searchStories, type SearchType, type SortBy, type DateRange } from "@/lib/search";
 import SearchFilters from "@/components/SearchFilters";
 import SearchResultItem from "@/components/SearchResultItem";
+import Pagination from "@/components/Pagination";
+
+// Algolia pages are 0-indexed; Pagination component is 1-indexed
 
 interface Props {
   searchParams: Promise<{
@@ -16,7 +18,7 @@ interface Props {
 
 export async function generateMetadata({ searchParams }: Props): Promise<Metadata> {
   const { q } = await searchParams;
-  return { title: q ? `"${q}" – Search | HN Mirror` : "Search | HN Mirror" };
+  return { title: q ? `"${q}" – Search` : "Search" };
 }
 
 export default async function SearchPage({ searchParams }: Props) {
@@ -29,54 +31,66 @@ export default async function SearchPage({ searchParams }: Props) {
   const page = Math.max(0, parseInt(pageStr ?? "0") || 0);
 
   const filters = { query, type: searchType, sortBy, dateRange };
-  const paginationBase = `/search?q=${encodeURIComponent(query)}&type=${searchType}&sort=${sortBy}&date=${dateRange}`;
+  const searchBase = `/search?q=${encodeURIComponent(query)}&type=${searchType}&sort=${sortBy}&date=${dateRange}`;
+  // Pagination uses 1-indexed pages; convert to Algolia's 0-indexed
+  const hrefForPage = (p: number) => `${searchBase}&page=${p - 1}`;
 
-  let results = null;
-  if (query) {
-    results = await searchStories({ ...filters, page, hitsPerPage: 30 });
-  }
+  const results = query
+    ? await searchStories({ ...filters, page, hitsPerPage: 30 })
+    : null;
 
   return (
-    <div>
-      <div className="px-4 pt-4 pb-3 border-b border-[#e8e8e0] bg-white/30">
+    <div className="space-y-4">
+      {/* Filter card */}
+      <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-4 sm:p-5">
         <SearchFilters {...filters} />
         {results && (
-          <p className="text-[11px] text-[#828282] mt-2">
-            {results.nbHits.toLocaleString()} result
-            {results.nbHits !== 1 ? "s" : ""}
+          <p className="text-xs text-gray-400 mt-3">
+            <span className="font-semibold text-gray-600">
+              {results.nbHits.toLocaleString()}
+            </span>{" "}
+            {results.nbHits === 1 ? "result" : "results"}
             {query && (
               <>
-                {" "}for <strong className="text-gray-700">{query}</strong>
+                {" "}for{" "}
+                <span className="font-semibold text-gray-700">&ldquo;{query}&rdquo;</span>
               </>
             )}
           </p>
         )}
       </div>
 
+      {/* Empty states */}
       {!query && (
-        <div className="px-4 py-10 text-center text-sm text-[#828282]">
-          Search across HN stories using the{" "}
-          <a
-            href="https://hn.algolia.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-[#ff6600] hover:underline"
-          >
-            Algolia HN Search API
-          </a>
-          .
+        <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-10 text-center">
+          <div className="text-3xl mb-3 select-none">🔍</div>
+          <p className="text-sm text-gray-500 mb-1">Search Hacker News</p>
+          <p className="text-xs text-gray-400">
+            Powered by the{" "}
+            <a
+              href="https://hn.algolia.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-[#ff6600] hover:underline"
+            >
+              Algolia HN Search API
+            </a>
+          </p>
         </div>
       )}
 
-      {results && results.hits.length === 0 && (
-        <div className="px-4 py-10 text-center text-sm text-[#828282]">
-          No results found. Try different keywords or filters.
+      {results?.hits.length === 0 && (
+        <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-10 text-center">
+          <div className="text-3xl mb-3 select-none">🤷</div>
+          <p className="text-sm text-gray-500">No results found.</p>
+          <p className="text-xs text-gray-400 mt-1">Try different keywords or filters.</p>
         </div>
       )}
 
+      {/* Results */}
       {results && results.hits.length > 0 && (
         <>
-          <div>
+          <div className="flex flex-col gap-3">
             {results.hits.map((hit, i) => (
               <SearchResultItem
                 key={hit.objectID}
@@ -87,31 +101,11 @@ export default async function SearchPage({ searchParams }: Props) {
           </div>
 
           {results.nbPages > 1 && (
-            <div className="flex justify-between items-center py-3 px-4 text-xs text-[#828282]">
-              {page > 0 ? (
-                <Link
-                  href={`${paginationBase}&page=${page - 1}`}
-                  className="text-[#ff6600] hover:underline"
-                >
-                  ← prev
-                </Link>
-              ) : (
-                <span />
-              )}
-              <span>
-                page {page + 1} of {results.nbPages}
-              </span>
-              {page < results.nbPages - 1 ? (
-                <Link
-                  href={`${paginationBase}&page=${page + 1}`}
-                  className="text-[#ff6600] hover:underline"
-                >
-                  more →
-                </Link>
-              ) : (
-                <span />
-              )}
-            </div>
+            <Pagination
+              currentPage={page + 1}
+              totalPages={results.nbPages}
+              hrefForPage={hrefForPage}
+            />
           )}
         </>
       )}

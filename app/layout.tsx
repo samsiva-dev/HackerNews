@@ -1,43 +1,50 @@
 import type { Metadata } from "next";
+import { Inter } from "next/font/google";
 import "./globals.css";
 import Navigation from "@/components/Navigation";
 
+const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
+
 export const metadata: Metadata = {
   title: {
-    default: "Hacker News Mirror",
-    template: "%s | HN Mirror",
+    default: "Hacker News",
+    template: "%s | HN",
   },
-  description: "A modern mirror of Hacker News built with the official HN Firebase API.",
+  description: "A modern Hacker News reader powered by the official HN API.",
 };
 
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en">
-      <body className="min-h-screen bg-[#f6f6ef] font-sans">
-        <div className="max-w-4xl mx-auto shadow-sm bg-[#f6f6ef] min-h-screen border-x border-[#e8e8e0]">
+    <html lang="en" className={inter.variable}>
+      <body className="min-h-screen bg-[#f5f3ef] font-[family-name:var(--font-inter)] antialiased">
+        <div className="min-h-screen flex flex-col">
           <Navigation />
-          <main>{children}</main>
-          <footer className="text-center py-4 text-[11px] text-[#828282] border-t-2 border-[#ff6600] mt-6">
-            Data from{" "}
-            <a
-              href="https://news.ycombinator.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:underline text-[#ff6600]"
-            >
-              Hacker News
-            </a>{" "}
-            via the{" "}
-            <a
-              href="https://github.com/HackerNews/API"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:underline text-[#ff6600]"
-            >
-              official API
-            </a>
+          <main className="flex-1 w-full max-w-3xl mx-auto px-3 sm:px-4 py-4 sm:py-6">
+            {children}
+          </main>
+          <footer className="w-full max-w-3xl mx-auto px-4 py-5 mt-2 border-t border-orange-200/60">
+            <p className="text-xs text-gray-400 text-center">
+              Data from{" "}
+              <a
+                href="https://news.ycombinator.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-orange-500 hover:text-orange-600 hover:underline"
+              >
+                Hacker News
+              </a>{" "}
+              via the{" "}
+              <a
+                href="https://github.com/HackerNews/API"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-orange-500 hover:text-orange-600 hover:underline"
+              >
+                official Firebase API
+              </a>
+            </p>
           </footer>
         </div>
       </body>
