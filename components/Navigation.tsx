@@ -2,6 +2,8 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { Suspense } from "react";
+import SearchBar from "./SearchBar";
 
 const NAV_LINKS = [
   { href: "/", label: "top" },
@@ -48,7 +50,20 @@ export default function Navigation() {
             </Link>
           );
         })}
+        <Link
+          href="/search"
+          className={`text-xs whitespace-nowrap transition-colors ${
+            pathname.startsWith("/search")
+              ? "text-white font-semibold underline"
+              : "text-white/80 hover:text-white hover:underline"
+          }`}
+        >
+          search
+        </Link>
       </nav>
+      <Suspense>
+        <SearchBar />
+      </Suspense>
     </header>
   );
 }
