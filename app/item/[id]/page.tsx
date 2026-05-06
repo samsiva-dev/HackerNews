@@ -27,73 +27,100 @@ export default async function ItemPage({ params }: Props) {
     : [];
 
   return (
-    <div className="px-2 py-3">
-      {/* Story header */}
-      <div className="px-2 pb-3 border-b border-[#e8e8e0] mb-4">
-        <div className="flex flex-wrap items-baseline gap-x-2 gap-y-1">
-          <h1 className="text-base font-semibold leading-snug">
-            {isExternal ? (
-              <a
-                href={item.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hover:text-[#ff6600]"
-              >
-                {item.title}
-              </a>
-            ) : (
-              item.title
-            )}
-          </h1>
-          {domain && (
-            <span className="text-xs text-[#828282] shrink-0">({domain})</span>
-          )}
-        </div>
-        <div className="text-[11px] text-[#828282] mt-1 flex flex-wrap gap-x-1.5 items-center">
-          <span>{item.score ?? 0} points</span>
-          <span>by</span>
-          <Link href={`/user/${item.by}`} className="hover:underline text-[#555]">
-            {item.by}
-          </Link>
-          <span>{timeAgo(item.time)}</span>
-          <span className="text-[#ccc]">|</span>
-          <span>{item.descendants ?? 0} comments</span>
-          {isExternal && (
-            <>
-              <span className="text-[#ccc]">|</span>
-              <a
-                href={item.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hover:underline text-[#ff6600]"
-              >
-                visit →
-              </a>
-            </>
-          )}
+    <div className="space-y-4">
+      {/* Story header card */}
+      <article className="bg-white rounded-2xl border border-gray-100 shadow-sm p-5 sm:p-6">
+        <div className="flex gap-4">
+          {/* Score */}
+          <div className="flex flex-col items-center gap-0.5 w-9 shrink-0 pt-1">
+            <span className="text-[#ff6600] text-2xl leading-none select-none">▲</span>
+            <span className="text-sm font-bold text-[#ff6600] tabular-nums">
+              {(item.score ?? 0) >= 1000
+                ? `${((item.score ?? 0) / 1000).toFixed(1)}k`
+                : item.score ?? 0}
+            </span>
+          </div>
+
+          {/* Content */}
+          <div className="flex-1 min-w-0">
+            <h1 className="text-lg sm:text-xl font-bold text-gray-900 leading-snug mb-3">
+              {isExternal ? (
+                <a
+                  href={item.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-[#ff6600] transition-colors"
+                >
+                  {item.title}
+                </a>
+              ) : (
+                item.title
+              )}
+            </h1>
+
+            <div className="flex flex-wrap items-center gap-x-3 gap-y-1.5">
+              {domain && (
+                <span className="inline-flex items-center text-xs bg-orange-50 text-orange-600 border border-orange-100 px-2.5 py-0.5 rounded-full font-medium">
+                  {domain}
+                </span>
+              )}
+              <span className="text-xs text-gray-500">
+                by{" "}
+                <Link
+                  href={`/user/${item.by}`}
+                  className="font-semibold text-gray-700 hover:text-[#ff6600] transition-colors"
+                >
+                  {item.by}
+                </Link>
+              </span>
+              <span className="text-xs text-gray-400">{timeAgo(item.time)}</span>
+              <span className="text-xs text-gray-400">
+                {item.descendants ?? 0} comments
+              </span>
+              {isExternal && (
+                <a
+                  href={item.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1 text-xs text-[#ff6600] hover:text-orange-700 font-medium transition-colors"
+                >
+                  Visit site
+                  <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                  </svg>
+                </a>
+              )}
+            </div>
+          </div>
         </div>
 
         {item.text && (
           <div
-            className="comment-body text-sm text-gray-700 mt-3 bg-white/60 rounded p-3 border border-[#e8e8e0]"
+            className="comment-body text-sm text-gray-700 mt-5 pt-5 border-t border-gray-100 leading-relaxed"
             dangerouslySetInnerHTML={{ __html: item.text }}
           />
         )}
-      </div>
+      </article>
 
-      {/* Comments */}
-      <div className="px-2">
+      {/* Comments section */}
+      <section>
+        <div className="flex items-center gap-3 mb-4 px-1">
+          <h2 className="text-sm font-semibold text-gray-700">
+            {item.descendants ?? 0} Comments
+          </h2>
+          <div className="flex-1 h-px bg-gray-200" />
+        </div>
+
         {comments.length > 0 ? (
-          <>
-            <p className="text-xs text-[#828282] mb-3 font-medium">
-              {item.descendants ?? 0} comments
-            </p>
+          <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-4 sm:p-5">
             <CommentTreeView comments={comments} />
-          </>
+          </div>
         ) : (
-          <p className="text-xs text-[#828282] italic">No comments yet.</p>
+          <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-8 text-center">
+            <p className="text-sm text-gray-400 italic">No comments yet.</p>
+          </div>
         )}
-      </div>
+      </section>
     </div>
   );
 }
