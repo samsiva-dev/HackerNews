@@ -12,6 +12,9 @@ out/
 .env.test.local
 .env.production.local
 
+# TypeScript build info
+tsconfig.tsbuildinfo
+
 # misc
 .DS_Store
 *.pem
