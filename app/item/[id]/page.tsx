@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getItem, buildCommentTree, timeAgo, getDomain } from "@/lib/api";
 import CommentTreeView from "@/components/CommentTreeView";
+import BookmarkButton from "@/components/BookmarkButton";
 
 interface Props {
   params: Promise<{ id: string }>;
@@ -29,7 +30,8 @@ export default async function ItemPage({ params }: Props) {
   return (
     <div className="space-y-4">
       {/* Story header card */}
-      <article className="bg-white rounded-2xl border border-gray-100 shadow-sm p-5 sm:p-6">
+      <article className="relative bg-white rounded-2xl border border-gray-100 shadow-sm p-5 sm:p-6">
+        <BookmarkButton item={item!} className="absolute top-4 right-4" />
         <div className="flex gap-4">
           {/* Score */}
           <div className="flex flex-col items-center gap-0.5 w-9 shrink-0 pt-1">
@@ -43,7 +45,7 @@ export default async function ItemPage({ params }: Props) {
 
           {/* Content */}
           <div className="flex-1 min-w-0">
-            <h1 className="text-lg sm:text-xl font-bold text-gray-900 leading-snug mb-3">
+            <h1 className="text-lg sm:text-xl font-bold text-gray-900 leading-snug mb-3 pr-8">
               {isExternal ? (
                 <a
                   href={item.url}
