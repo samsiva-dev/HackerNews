@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import type { HNItem } from "@/lib/types";
 import { timeAgo, getDomain } from "@/lib/api";
+import BookmarkButton from "@/components/BookmarkButton";
 
 interface Props {
   item: HNItem;
@@ -34,6 +35,7 @@ export default function StoryCard({ item, rank }: Props) {
       className="relative bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-md hover:border-orange-100 transition-all duration-200 p-4 sm:p-5 cursor-pointer"
       onClick={() => router.push(`/item/${item.id}`)}
     >
+      <BookmarkButton item={item} className="absolute top-3 right-3" />
 
       <div className="flex gap-4">
         {/* Score column */}
@@ -49,7 +51,7 @@ export default function StoryCard({ item, rank }: Props) {
         {/* Main content */}
         <div className="flex-1 min-w-0">
           {/* Title row */}
-          <div className="flex flex-wrap items-start gap-2 mb-2.5">
+          <div className="flex flex-wrap items-start gap-2 mb-2.5 pr-8">
             {badge && (
               <span className={`inline-flex shrink-0 items-center text-[10px] font-semibold uppercase tracking-wide px-1.5 py-0.5 rounded border ${badge.cls}`}>
                 {badge.label}

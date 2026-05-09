@@ -13,6 +13,7 @@ const NAV_LINKS = [
   { href: "/show", label: "Show" },
   { href: "/jobs", label: "Jobs" },
   { href: "/search", label: "Search" },
+  { href: "/bookmarks", label: "Bookmarks" },
 ];
 
 export default function Navigation() {

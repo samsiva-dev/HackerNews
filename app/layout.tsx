@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import Navigation from "@/components/Navigation";
+import { BookmarkProvider } from "@/contexts/BookmarkContext";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 
@@ -19,6 +20,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={inter.variable}>
       <body className="min-h-screen bg-[#f5f3ef] font-[family-name:var(--font-inter)] antialiased">
+        <BookmarkProvider>
         <div className="min-h-screen flex flex-col">
           <Navigation />
           <main className="flex-1 w-full max-w-3xl mx-auto px-3 sm:px-4 py-4 sm:py-6">
@@ -47,6 +49,7 @@ export default function RootLayout({
             </p>
           </footer>
         </div>
+        </BookmarkProvider>
       </body>
     </html>
   );
