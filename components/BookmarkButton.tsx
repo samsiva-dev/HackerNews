@@ -22,8 +22,8 @@ export default function BookmarkButton({ item, className = "" }: Props) {
       aria-label={bookmarked ? "Remove bookmark" : "Bookmark this story"}
       className={`inline-flex items-center justify-center w-7 h-7 rounded-lg transition-colors ${
         bookmarked
-          ? "text-orange-500 bg-orange-50 hover:bg-orange-100"
-          : "text-gray-300 hover:text-orange-400 hover:bg-orange-50"
+          ? "text-orange-500 bg-orange-50 dark:bg-orange-900/30 hover:bg-orange-100 dark:hover:bg-orange-900/50"
+          : "text-gray-300 dark:text-gray-600 hover:text-orange-400 hover:bg-orange-50 dark:hover:bg-orange-900/20"
       } ${className}`}
     >
       <svg

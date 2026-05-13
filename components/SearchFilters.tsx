@@ -11,7 +11,7 @@ interface Props {
 }
 
 const selectCls =
-  "text-xs border border-[#e8e8e0] rounded px-2 py-1.5 bg-white text-gray-700 focus:outline-none focus:border-[#ff6600] cursor-pointer";
+  "text-xs border border-gray-200 dark:border-gray-700 rounded px-2 py-1.5 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 focus:outline-none focus:border-[#ff6600] cursor-pointer";
 
 export default function SearchFilters({ query, type, sortBy, dateRange }: Props) {
   const router = useRouter();
@@ -42,7 +42,7 @@ export default function SearchFilters({ query, type, sortBy, dateRange }: Props)
         type="search"
         defaultValue={query}
         placeholder="Search Hacker News…"
-        className="text-sm border border-[#e8e8e0] rounded px-3 py-1.5 bg-white flex-1 min-w-[180px] focus:outline-none focus:border-[#ff6600]"
+        className="text-sm border border-gray-200 dark:border-gray-700 rounded px-3 py-1.5 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-500 flex-1 min-w-[180px] focus:outline-none focus:border-[#ff6600]"
       />
       <button
         type="submit"

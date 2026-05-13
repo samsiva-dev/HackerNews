@@ -29,12 +29,12 @@ function avatarColor(name: string): string {
 
 // Thin thread line color per nesting depth
 const THREAD_COLORS = [
-  "bg-orange-300",
-  "bg-amber-300",
-  "bg-emerald-300",
-  "bg-sky-300",
-  "bg-violet-300",
-  "bg-pink-300",
+  "bg-orange-300 dark:bg-orange-700",
+  "bg-amber-300 dark:bg-amber-700",
+  "bg-emerald-300 dark:bg-emerald-700",
+  "bg-sky-300 dark:bg-sky-700",
+  "bg-violet-300 dark:bg-violet-700",
+  "bg-pink-300 dark:bg-pink-700",
 ];
 
 interface Props {
@@ -60,11 +60,10 @@ export default function CollapsibleComment({
   const isTop = depth === 0;
 
   return (
-    // Top-level: full white card. Nested: bare (lives inside parent thread)
     <div
       className={
         isTop
-          ? "bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden"
+          ? "bg-white dark:bg-gray-800 rounded-2xl border border-gray-100 dark:border-gray-700 shadow-sm overflow-hidden"
           : ""
       }
     >
@@ -83,11 +82,11 @@ export default function CollapsibleComment({
           <div className="flex-1 flex items-center gap-2 min-w-0 overflow-hidden">
             <Link
               href={`/user/${username}`}
-              className="text-sm font-semibold text-gray-800 hover:text-[#ff6600] transition-colors truncate"
+              className="text-sm font-semibold text-gray-800 dark:text-gray-200 hover:text-[#ff6600] transition-colors truncate"
             >
               {username}
             </Link>
-            <span className="text-[11px] text-gray-400 shrink-0">
+            <span className="text-[11px] text-gray-400 dark:text-gray-500 shrink-0">
               {timeAgo(item.time)}
             </span>
 
@@ -95,7 +94,7 @@ export default function CollapsibleComment({
             {collapsed && totalReplies > 0 && (
               <button
                 onClick={() => setCollapsed(false)}
-                className="text-[10px] font-semibold text-gray-400 bg-gray-100 hover:bg-gray-200 px-1.5 py-0.5 rounded-full transition-colors shrink-0"
+                className="text-[10px] font-semibold text-gray-400 dark:text-gray-500 bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 px-1.5 py-0.5 rounded-full transition-colors shrink-0"
               >
                 +{totalReplies}
               </button>
@@ -106,7 +105,7 @@ export default function CollapsibleComment({
           <button
             onClick={() => setCollapsed((c) => !c)}
             aria-label={collapsed ? "Expand comment" : "Collapse comment"}
-            className="shrink-0 w-6 h-6 rounded-md flex items-center justify-center text-xs font-bold text-gray-400 hover:text-gray-600 hover:bg-gray-100 transition-colors select-none"
+            className="shrink-0 w-6 h-6 rounded-md flex items-center justify-center text-xs font-bold text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors select-none"
           >
             {collapsed ? "+" : "−"}
           </button>
@@ -124,7 +123,7 @@ export default function CollapsibleComment({
             {/* Comment text */}
             {item.text && (
               <div
-                className="comment-body text-sm text-gray-700 leading-relaxed mt-3"
+                className="comment-body text-sm text-gray-700 dark:text-gray-300 leading-relaxed mt-3"
                 dangerouslySetInnerHTML={{ __html: item.text }}
               />
             )}

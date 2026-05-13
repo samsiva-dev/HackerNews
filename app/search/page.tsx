@@ -42,18 +42,18 @@ export default async function SearchPage({ searchParams }: Props) {
   return (
     <div className="space-y-4">
       {/* Filter card */}
-      <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-4 sm:p-5">
+      <div className="bg-white dark:bg-gray-800/80 rounded-2xl border border-gray-100 dark:border-gray-700 shadow-sm p-4 sm:p-5">
         <SearchFilters {...filters} />
         {results && (
-          <p className="text-xs text-gray-400 mt-3">
-            <span className="font-semibold text-gray-600">
+          <p className="text-xs text-gray-400 dark:text-gray-500 mt-3">
+            <span className="font-semibold text-gray-600 dark:text-gray-300">
               {results.nbHits.toLocaleString()}
             </span>{" "}
             {results.nbHits === 1 ? "result" : "results"}
             {query && (
               <>
                 {" "}for{" "}
-                <span className="font-semibold text-gray-700">&ldquo;{query}&rdquo;</span>
+                <span className="font-semibold text-gray-700 dark:text-gray-200">&ldquo;{query}&rdquo;</span>
               </>
             )}
           </p>
@@ -62,10 +62,10 @@ export default async function SearchPage({ searchParams }: Props) {
 
       {/* Empty states */}
       {!query && (
-        <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-10 text-center">
+        <div className="bg-white dark:bg-gray-800/80 rounded-2xl border border-gray-100 dark:border-gray-700 shadow-sm p-10 text-center">
           <div className="text-3xl mb-3 select-none">🔍</div>
-          <p className="text-sm text-gray-500 mb-1">Search Hacker News</p>
-          <p className="text-xs text-gray-400">
+          <p className="text-sm text-gray-500 dark:text-gray-400 mb-1">Search Hacker News</p>
+          <p className="text-xs text-gray-400 dark:text-gray-500">
             Powered by the{" "}
             <a
               href="https://hn.algolia.com"
@@ -80,10 +80,10 @@ export default async function SearchPage({ searchParams }: Props) {
       )}
 
       {results?.hits.length === 0 && (
-        <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-10 text-center">
+        <div className="bg-white dark:bg-gray-800/80 rounded-2xl border border-gray-100 dark:border-gray-700 shadow-sm p-10 text-center">
           <div className="text-3xl mb-3 select-none">🤷</div>
-          <p className="text-sm text-gray-500">No results found.</p>
-          <p className="text-xs text-gray-400 mt-1">Try different keywords or filters.</p>
+          <p className="text-sm text-gray-500 dark:text-gray-400">No results found.</p>
+          <p className="text-xs text-gray-400 dark:text-gray-500 mt-1">Try different keywords or filters.</p>
         </div>
       )}
 
