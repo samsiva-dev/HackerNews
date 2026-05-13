@@ -30,7 +30,7 @@ export default async function ItemPage({ params }: Props) {
   return (
     <div className="space-y-4">
       {/* Story header card */}
-      <article className="relative bg-white rounded-2xl border border-gray-100 shadow-sm p-5 sm:p-6">
+      <article className="relative bg-white dark:bg-gray-800/80 rounded-2xl border border-gray-100 dark:border-gray-700 shadow-sm p-5 sm:p-6">
         <BookmarkButton item={item!} className="absolute top-4 right-4" />
         <div className="flex gap-4">
           {/* Score */}
@@ -45,7 +45,7 @@ export default async function ItemPage({ params }: Props) {
 
           {/* Content */}
           <div className="flex-1 min-w-0">
-            <h1 className="text-lg sm:text-xl font-bold text-gray-900 leading-snug mb-3 pr-8">
+            <h1 className="text-lg sm:text-xl font-bold text-gray-900 dark:text-gray-100 leading-snug mb-3 pr-8">
               {isExternal ? (
                 <a
                   href={item.url}
@@ -62,21 +62,21 @@ export default async function ItemPage({ params }: Props) {
 
             <div className="flex flex-wrap items-center gap-x-3 gap-y-1.5">
               {domain && (
-                <span className="inline-flex items-center text-xs bg-orange-50 text-orange-600 border border-orange-100 px-2.5 py-0.5 rounded-full font-medium">
+                <span className="inline-flex items-center text-xs bg-orange-50 dark:bg-orange-900/20 text-orange-600 dark:text-orange-400 border border-orange-100 dark:border-orange-800/40 px-2.5 py-0.5 rounded-full font-medium">
                   {domain}
                 </span>
               )}
-              <span className="text-xs text-gray-500">
+              <span className="text-xs text-gray-500 dark:text-gray-400">
                 by{" "}
                 <Link
                   href={`/user/${item.by}`}
-                  className="font-semibold text-gray-700 hover:text-[#ff6600] transition-colors"
+                  className="font-semibold text-gray-700 dark:text-gray-300 hover:text-[#ff6600] transition-colors"
                 >
                   {item.by}
                 </Link>
               </span>
-              <span className="text-xs text-gray-400">{timeAgo(item.time)}</span>
-              <span className="text-xs text-gray-400">
+              <span className="text-xs text-gray-400 dark:text-gray-500">{timeAgo(item.time)}</span>
+              <span className="text-xs text-gray-400 dark:text-gray-500">
                 {item.descendants ?? 0} comments
               </span>
               {isExternal && (
@@ -98,7 +98,7 @@ export default async function ItemPage({ params }: Props) {
 
         {item.text && (
           <div
-            className="comment-body text-sm text-gray-700 mt-5 pt-5 border-t border-gray-100 leading-relaxed"
+            className="comment-body text-sm text-gray-700 dark:text-gray-300 mt-5 pt-5 border-t border-gray-100 dark:border-gray-700 leading-relaxed"
             dangerouslySetInnerHTML={{ __html: item.text }}
           />
         )}
@@ -107,19 +107,19 @@ export default async function ItemPage({ params }: Props) {
       {/* Comments section */}
       <section>
         <div className="flex items-center gap-3 mb-4 px-1">
-          <h2 className="text-sm font-semibold text-gray-700">
+          <h2 className="text-sm font-semibold text-gray-700 dark:text-gray-300">
             {item.descendants ?? 0} Comments
           </h2>
-          <div className="flex-1 h-px bg-gray-200" />
+          <div className="flex-1 h-px bg-gray-200 dark:bg-gray-700" />
         </div>
 
         {comments.length > 0 ? (
-          <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-4 sm:p-5">
+          <div className="bg-white dark:bg-gray-800/80 rounded-2xl border border-gray-100 dark:border-gray-700 shadow-sm p-4 sm:p-5">
             <CommentTreeView comments={comments} />
           </div>
         ) : (
-          <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-8 text-center">
-            <p className="text-sm text-gray-400 italic">No comments yet.</p>
+          <div className="bg-white dark:bg-gray-800/80 rounded-2xl border border-gray-100 dark:border-gray-700 shadow-sm p-8 text-center">
+            <p className="text-sm text-gray-400 dark:text-gray-500 italic">No comments yet.</p>
           </div>
         )}
       </section>

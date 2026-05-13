@@ -13,7 +13,7 @@ export default function SearchResultItem({ hit, rank }: Props) {
   const titleHref = isExternal ? hit.url! : `/item/${hit.objectID}`;
 
   return (
-    <article className="bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-md hover:border-orange-100 transition-all duration-200 p-4 sm:p-5">
+    <article className="bg-white dark:bg-gray-800/80 rounded-2xl border border-gray-100 dark:border-gray-700 shadow-sm hover:shadow-md hover:border-orange-100 dark:hover:border-orange-800/50 transition-all duration-200 p-4 sm:p-5">
       <div className="flex gap-4">
         {/* Score */}
         {hit.points !== null && (
@@ -34,31 +34,31 @@ export default function SearchResultItem({ hit, rank }: Props) {
               href={titleHref}
               target={isExternal ? "_blank" : undefined}
               rel={isExternal ? "noopener noreferrer" : undefined}
-              className="text-[15px] font-semibold text-gray-900 hover:text-[#ff6600] leading-snug transition-colors break-words"
+              className="text-[15px] font-semibold text-gray-900 dark:text-gray-100 hover:text-[#ff6600] leading-snug transition-colors break-words"
             >
               {hit.title ?? "(untitled)"}
             </a>
           </div>
           <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
             {domain && (
-              <span className="inline-flex items-center text-[11px] bg-orange-50 text-orange-600 border border-orange-100 px-2 py-0.5 rounded-full font-medium">
+              <span className="inline-flex items-center text-[11px] bg-orange-50 dark:bg-orange-900/20 text-orange-600 dark:text-orange-400 border border-orange-100 dark:border-orange-800/40 px-2 py-0.5 rounded-full font-medium">
                 {domain}
               </span>
             )}
-            <span className="text-[11px] text-gray-400 tabular-nums">#{rank}</span>
-            <span className="text-[11px] text-gray-400">
+            <span className="text-[11px] text-gray-400 dark:text-gray-500 tabular-nums">#{rank}</span>
+            <span className="text-[11px] text-gray-400 dark:text-gray-500">
               by{" "}
               <Link
                 href={`/user/${hit.author}`}
-                className="font-medium text-gray-600 hover:text-[#ff6600] transition-colors"
+                className="font-medium text-gray-600 dark:text-gray-400 hover:text-[#ff6600] transition-colors"
               >
                 {hit.author}
               </Link>
             </span>
-            <span className="text-[11px] text-gray-400">{timeAgo(hit.created_at_i)}</span>
+            <span className="text-[11px] text-gray-400 dark:text-gray-500">{timeAgo(hit.created_at_i)}</span>
             <Link
               href={`/item/${hit.objectID}`}
-              className="inline-flex items-center gap-1 text-[11px] text-gray-400 hover:text-[#ff6600] transition-colors font-medium"
+              className="inline-flex items-center gap-1 text-[11px] text-gray-400 dark:text-gray-500 hover:text-[#ff6600] transition-colors font-medium"
             >
               <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />

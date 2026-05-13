@@ -7,13 +7,21 @@
     background-color: #f5f3ef;
     scroll-behavior: smooth;
   }
+  html.dark {
+    background-color: #030712;
+  }
   body {
     background-color: #f5f3ef;
     color: #111827;
     -webkit-font-smoothing: antialiased;
   }
+  .dark body {
+    background-color: #030712;
+    color: #f3f4f6;
+  }
 }
 
+/* ── Comment body – light ──────────────────────────────── */
 .comment-body a {
   color: #ea580c;
   text-decoration: underline;
@@ -51,3 +59,27 @@
 .comment-body i { font-style: italic; }
 .comment-body ul, .comment-body ol { padding-left: 1.25rem; margin-bottom: 0.5rem; }
 .comment-body li { margin-bottom: 0.25rem; }
+
+/* ── Comment body – dark ───────────────────────────────── */
+.dark .comment-body a { color: #fb923c; }
+.dark .comment-body a:hover { color: #fdba74; }
+.dark .comment-body pre {
+  background: #1e293b;
+  border-color: #334155;
+}
+.dark .comment-body code {
+  background: #1e293b;
+  color: #e2e8f0;
+  border-color: #334155;
+}
+.dark .comment-body blockquote {
+  border-left-color: #fb923c;
+  color: #9ca3af;
+}
+
+/* ── Keyboard focus ring for story cards ───────────────── */
+article[data-story-id].ring-2 {
+  --tw-ring-color: #ff6600;
+  --tw-ring-offset-width: 2px;
+  box-shadow: 0 0 0 2px #ff6600;
+}
