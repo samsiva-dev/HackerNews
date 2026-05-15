@@ -14,7 +14,7 @@ export const metadata: Metadata = {
     default: "Hacker News",
     template: "%s | HN",
   },
-  description: "A modern Hacker News reader powered by the official HN API.",
+  description: "A modern Hacker News reader powered by the official HN API. Built By Samba Siva",
 };
 
 // Inline script to apply theme before first paint (prevents flash of unstyled content)
