@@ -64,7 +64,8 @@ export default function RootLayout({
                       className="text-orange-500 hover:text-orange-600 hover:underline"
                     >
                       official Firebase API
-                    </a>
+                    </a> {" · "}
+                    <span className="text-gray-400 dark:text-gray-500">Built by Samba Siva</span>
                   </p>
                 </footer>
               </div>
