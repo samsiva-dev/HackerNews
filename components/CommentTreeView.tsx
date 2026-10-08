@@ -15,7 +15,7 @@ export default function CommentTreeView({ comments, depth = 0 }: Props) {
   if (!comments.length) return null;
 
   return (
-    <div className={depth === 0 ? "flex flex-col gap-3" : "contents"}>
+    <div className={depth === 0 ? "divide-y divide-stone-300 dark:divide-gray-700 border-t border-stone-300 dark:border-gray-700" : "contents"}>
       {comments.map(({ item, children }) => (
         <CollapsibleComment
           key={item.id}

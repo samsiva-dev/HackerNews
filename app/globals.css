@@ -107,3 +107,14 @@ article[data-story-id].ring-2 {
     color: #ff6600;
   }
 }
+@media (min-width: 640px) {
+  .news-body::first-letter {
+    float: left;
+    font-family: var(--font-display), Georgia, serif;
+    font-weight: 900;
+    font-size: 3.6em;
+    line-height: 0.85;
+    padding: 0.06em 0.1em 0 0;
+    color: #ff6600;
+  }
+}

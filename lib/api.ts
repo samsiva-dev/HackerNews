@@ -103,3 +103,12 @@ export function getDomain(url?: string): string | null {
     return null;
   }
 }
+
+/** Newspaper-style section label for a story, e.g. "Ask HN" or "Jobs". */
+export function getKicker(item: HNItem): string | null {
+  if (item.type === "job") return "Jobs";
+  for (const prefix of ["Ask HN", "Show HN", "Tell HN", "Launch HN"]) {
+    if (item.title?.startsWith(prefix)) return prefix;
+  }
+  return null;
+}

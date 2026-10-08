@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import type { HNItem } from "@/lib/types";
-import { timeAgo, getDomain } from "@/lib/api";
+import { timeAgo, getDomain, getKicker } from "@/lib/api";
 import BookmarkButton from "@/components/BookmarkButton";
 import { useVisited } from "@/contexts/VisitedContext";
 
@@ -15,15 +15,6 @@ interface Props {
   variant?: StoryVariant;
   /** Server-rendered description (streamed via Suspense). */
   description?: React.ReactNode;
-}
-
-function getKicker(item: HNItem): string | null {
-  if (item.type === "job") return "Jobs";
-  if (item.title?.startsWith("Ask HN")) return "Ask HN";
-  if (item.title?.startsWith("Show HN")) return "Show HN";
-  if (item.title?.startsWith("Tell HN")) return "Tell HN";
-  if (item.title?.startsWith("Launch HN")) return "Launch HN";
-  return null;
 }
 
 const HEADLINE: Record<StoryVariant, string> = {
