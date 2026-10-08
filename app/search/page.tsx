@@ -40,7 +40,7 @@ export default async function SearchPage({ searchParams }: Props) {
     : null;
 
   return (
-    <div className="space-y-4">
+    <div className="max-w-3xl mx-auto space-y-4">
       {/* Filter card */}
       <div className="bg-white dark:bg-gray-800/80 rounded-2xl border border-gray-100 dark:border-gray-700 shadow-sm p-4 sm:p-5">
         <SearchFilters {...filters} />

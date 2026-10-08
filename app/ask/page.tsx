@@ -20,6 +20,7 @@ export default async function AskPage({
       totalPages={totalPages}
       basePath="/ask"
       startRank={startRank}
+      edition="Ask HN Edition"
     />
   );
 }

@@ -20,6 +20,7 @@ export default async function BestPage({
       totalPages={totalPages}
       basePath="/best"
       startRank={startRank}
+      edition="Best Stories Edition"
     />
   );
 }

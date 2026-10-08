@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Playfair_Display, Source_Serif_4 } from "next/font/google";
 import "./globals.css";
 import Navigation from "@/components/Navigation";
 import { BookmarkProvider } from "@/contexts/BookmarkContext";
@@ -8,6 +8,8 @@ import { VisitedProvider } from "@/contexts/VisitedContext";
 import KeyboardShortcuts from "@/components/KeyboardShortcuts";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
+const display = Playfair_Display({ subsets: ["latin"], weight: ["700", "900"], variable: "--font-display" });
+const serif = Source_Serif_4({ subsets: ["latin"], style: ["normal", "italic"], variable: "--font-serif" });
 
 export const metadata: Metadata = {
   title: {
@@ -32,7 +34,7 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={inter.variable} suppressHydrationWarning>
+    <html lang="en" className={`${inter.variable} ${display.variable} ${serif.variable}`} suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
       </head>
@@ -42,10 +44,10 @@ export default function RootLayout({
             <VisitedProvider>
               <div className="min-h-screen flex flex-col">
                 <Navigation />
-                <main className="flex-1 w-full max-w-3xl mx-auto px-3 sm:px-4 py-4 sm:py-6">
+                <main className="flex-1 w-full max-w-6xl mx-auto px-3 sm:px-4 py-4 sm:py-6">
                   {children}
                 </main>
-                <footer className="w-full max-w-3xl mx-auto px-4 py-5 mt-2 border-t border-orange-200/60 dark:border-gray-800">
+                <footer className="w-full max-w-6xl mx-auto px-4 py-5 mt-2 border-t border-orange-200/60 dark:border-gray-800">
                   <p className="text-xs text-gray-400 dark:text-gray-500 text-center">
                     Data from{" "}
                     <a
