@@ -83,7 +83,7 @@ export default function Navigation() {
 
   return (
     <header className="sticky top-0 z-20 bg-[#ff6600] shadow-md">
-      <div className="w-full max-w-3xl mx-auto px-3 sm:px-4 flex items-center gap-2 py-2">
+      <div className="w-full max-w-6xl mx-auto px-3 sm:px-4 flex items-center gap-2 py-2">
         {/* Brand */}
         <Link
           href="/"

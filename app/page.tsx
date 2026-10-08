@@ -20,6 +20,7 @@ export default async function TopPage({
       totalPages={totalPages}
       basePath="/"
       startRank={startRank}
+      edition="Top Stories Edition"
     />
   );
 }

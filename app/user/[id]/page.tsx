@@ -36,7 +36,7 @@ export default async function UserPage({ params }: Props) {
   const initials = user.id.slice(0, 2).toUpperCase();
 
   return (
-    <div className="max-w-lg">
+    <div className="max-w-3xl mx-auto"><div className="max-w-lg">
       {/* Profile card */}
       <div className="bg-white dark:bg-gray-800/80 rounded-2xl border border-gray-100 dark:border-gray-700 shadow-sm p-6 mb-4">
         <div className="flex items-start gap-4 mb-5">
@@ -99,6 +99,6 @@ export default async function UserPage({ params }: Props) {
           Comments ↗
         </a>
       </div>
-    </div>
+    </div></div>
   );
 }

@@ -20,6 +20,7 @@ export default async function JobsPage({
       totalPages={totalPages}
       basePath="/jobs"
       startRank={startRank}
+      edition="Jobs Edition"
     />
   );
 }

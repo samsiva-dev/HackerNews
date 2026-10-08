@@ -20,6 +20,7 @@ export default async function ShowPage({
       totalPages={totalPages}
       basePath="/show"
       startRank={startRank}
+      edition="Show HN Edition"
     />
   );
 }

@@ -4,5 +4,9 @@ import BookmarksView from "@/components/BookmarksView";
 export const metadata: Metadata = { title: "Bookmarks" };
 
 export default function BookmarksPage() {
-  return <BookmarksView />;
+  return (
+    <div className="max-w-3xl mx-auto">
+      <BookmarksView />
+    </div>
+  );
 }

@@ -28,7 +28,7 @@ export default async function ItemPage({ params }: Props) {
     : [];
 
   return (
-    <div className="space-y-4">
+    <div className="max-w-3xl mx-auto space-y-4">
       {/* Story header card */}
       <article className="relative bg-white dark:bg-gray-800/80 rounded-2xl border border-gray-100 dark:border-gray-700 shadow-sm p-5 sm:p-6">
         <BookmarkButton item={item!} className="absolute top-4 right-4" />
